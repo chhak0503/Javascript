@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">    
-    <title>1_jQuery Ajax</title>
+    <title>4_Ajax XML 데이터 처리</title>
     <!--
         날짜 : 2022/10/19
         이름 : 김철학
-        내용 : jQuery Ajax 통신 실습하기
+        내용 : Ajax XML 데이터 처리 실습하기
     -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
@@ -15,18 +15,18 @@
             $('button').click(function(){
                 // 데이터 요청
                 $.ajax({
-                    url:'http://chhak.or.kr/data/user.json',
+                    url:'http://chhak.or.kr/data/user.xml',
                     type:'GET',
-                    dataType:'json',
+                    dataType:'xml',
                     success:function(data){
                         console.log(data);
-                        $('p > span:eq(0)').text(data.uid);
-                        $('p > span:eq(1)').text(data.name);
-                        $('p > span:eq(2)').text(data.hp);
-                        $('p > span:eq(3)').text(data.age);
-                    },
-                    error:function(){
-                        console.log('error!');
+                        // XML 파싱하기
+                        let xml = $(data);
+                        $('p > span:eq(0)').text(xml.find('uid').text());
+                        $('p > span:eq(1)').text(xml.find('name').text());
+                        $('p > span:eq(2)').text(xml.find('hp').text());
+                        $('p > span:eq(3)').text(xml.find('age').text());
+
                     }
                 });
 
@@ -37,7 +37,7 @@
 
 </head>
 <body>
-    <h3>1.Ajax</h3>
+    <h3>XML 데이터 처리</h3>
 
     <button>데이터 요청하기</button>
     <p>
@@ -46,9 +46,6 @@
         휴대폰 : <span></span><br/>
         나이 : <span></span><br/>
     </p>
-
-    
-
 
 </body>
 </html>
