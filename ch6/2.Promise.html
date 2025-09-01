@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.Promise</title>
+    <!--
+        날짜 : 2025/09/01
+        이름 : 김철학
+        내용 : 6장 비동기처리와 AJAX    
+    -->
+</head>
+<body>
+    <h3>2.Promise</h3>
+    <script>
+        // Promise 생성
+        const promise = new Promise((resolve, reject)=>{
+
+            // 비동기 처리 작업             
+            const result = false;
+
+            if(result){
+                // 작업 성공
+                resolve('promise success...');
+            }else{
+                // 작업 실패
+                reject('promise fail...');
+            }
+        });
+
+        // promise 실행
+        promise
+            .then((message)=>{
+                // 작업성공(resolve 호출)
+                console.log(message);
+
+            }).catch((message)=>{
+                // 작업실패(reject 호출)                
+                console.log(message);
+
+            }).finally(()=>{
+                // 마지막 실행
+                console.log('finally...');
+            });
+
+        // Promise 비동기 처리
+        function step1(){
+
+            return new Promise((resolve, reject)=>{
+
+                setTimeout(function(){
+                    resolve('step1...');
+                }, 1000);
+            });
+        }
+
+        function step2(msg){
+
+            console.log('step2 msg : ' + msg);
+
+            return new Promise((resolve, reject)=>{
+
+                setTimeout(function(){
+                    resolve('step2...');
+                }, 3000);
+            });
+        }
+
+        function step3(msg){
+
+            console.log('step3 msg : ' + msg);
+
+            return new Promise((resolve, reject)=>{
+
+                setTimeout(function(){
+                    resolve('step3...');
+                }, 2000);
+            });
+        }
+
+        step1()
+            .then((msg)=>{ // step1의 반환 promise의 resolve 호출
+                return step2(msg);
+            })
+            .then((msg)=>step3(msg)) // step2의 반환 promise의 resolve 호출
+            .then((msg)=>{           // step3의 반환 promise의 resolve 호출
+                console.log('done...');
+            })
+            .catch((msg)=>{
+                console.log('catch... : ' + msg);
+            })
+            .finally(()=>{
+                console.log('finally...');
+            });
+    
+
+
+    </script>
+    
+</body>
+</html>
