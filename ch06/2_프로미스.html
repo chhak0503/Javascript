@@ -66,14 +66,24 @@
         }
 
         step1()
-            .then((message)=>step2(message))
+            .then((message)=>step2(message)) // return 생략
             .then((message)=>step3(message))
             .then((message)=>{
                 console.log('last : ' + message);
             });
 
+
+        // async는 await 함수를 정의하는 키워드
+        async function job(){
+            
+            const result1 = await step1(); // await는 step1(반환값 Promise)의 작업완료 대기 후 resolve의 인자값을 반환
+            const result2 = await step2(result1);
+            const result3 = await step3(result2);
+
+            console.log('job : ' + result3);
+        }
         
-        
+        job(); // 비동기 함수 호출
 
 
 
