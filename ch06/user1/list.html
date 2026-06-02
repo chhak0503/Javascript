@@ -22,6 +22,10 @@
                                             <td>${user.name}</td>
                                             <td>${user.hp}</td>
                                             <td>${user.age}</td>
+                                            <td>
+                                                <a href='#'>수정</a>    
+                                                <a href='#'>삭제</a>    
+                                            </td>
                                         </tr>`;
                         
                         user1.insertAdjacentHTML('beforeend', html);
@@ -30,8 +34,6 @@
                 .catch(err => {
                     console.log(err);
                 });
-
-
         });
 
 
@@ -40,12 +42,15 @@
 <body>
     <h3>User1 AJAX 실습</h3>
     
+    <a href="./list.html">목록</a>
+    <a href="./register.html">등록</a>
     <table class="user1" border="1">
         <tr>
             <th>아이디</th>
             <th>이름</th>
             <th>휴대폰</th>
             <th>나이</th>
+            <th>관리</th>
         </tr>
     </table>
 
