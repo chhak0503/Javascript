@@ -24,14 +24,46 @@
 									<td>${user.age}</td>
 									<td>
 										<a href="./modify.html?userid=${user.userid}">수정</a>
-										<a href="#">삭제</a>
+										<a href="#" class='remove' data-userid=${user.userid}>삭제</a>
 									</td>
 								</tr>`;
 
 					table.insertAdjacentHTML('beforeend', tr);
-				}
+				} // for end
 
 
+				// 삭제 링크 이벤트 처리(동적 이벤트이므로 문서객체로 이벤트 처리)
+				document.addEventListener('click', async function(e){
+
+					const target = e.target;
+
+					// 삭제 링크 클릭
+					if(target.classList == 'remove'){
+						e.preventDefault();
+
+						if(!confirm('정말 삭제 하시겠습니까?')){
+							return;
+						}
+
+						const userid = target.dataset.userid; // 사용자 정의 속성 userid 값 가져오기
+						console.log(userid);
+
+						// 삭제 백엔드 요청
+						const response = await fetch(`http://127.0.0.1:8080/ch08/user1/${userid}`, {
+							method: 'DELETE'							
+						});
+						const data = await response.json();
+						console.log(data);
+
+						if(data.result){
+							// 새로고침해서 화면에서 삭제
+							//location.href = './list.html?remove=success';
+
+							// 현재 화면에서 동적 삭제
+							target.closest('tr').remove();
+						}
+					}
+				});
 			});
 		</script>
 	</head>
