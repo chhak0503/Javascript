@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<title>user1::수정</title>
 		<script>
-
 			document.addEventListener('DOMContentLoaded', async function(){
 
 				// 전송 파라미터 수신
@@ -24,6 +23,36 @@
 				form.name.value = data.name;
 				form.hp.value = data.hp;
 				form.age.value = data.age;
+
+				// 수정 처리 요청하기
+				form.addEventListener('submit', async function(e){
+					e.preventDefault();
+
+					// JSON 생성					
+					const jsonData = {
+						"userid": this.userid.value,
+						"name": this.name.value,
+						"hp": this.hp.value,
+						"age": this.age.value
+					};
+
+					// 백엔드 요청
+					const response = await fetch('http://127.0.0.1:8080/ch08/user1', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(jsonData)
+					});
+					const data = await response.json();
+					console.log(data);
+
+					if(data != null){
+						alert(data.name + '님을 수정했습니다.');
+						location.href = './list.html?modify=success';
+					}
+				});
+
 
 
 
