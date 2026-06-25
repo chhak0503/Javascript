@@ -3,6 +3,37 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>user1::목록</title>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', async function(){
+
+				// 목록 데이터 요청
+				const response = await fetch('http://localhost:8080/ch08/user1');
+				const data = await response.json();
+				console.log(data);
+
+				// 테이블 목록 출력
+				const table = document.getElementsByTagName('table')[0];
+
+				for(const user of data){
+
+					const tr = `<tr>
+									<td>${user.userid}</td>
+									<td>${user.name}</td>
+									<td>${user.hp}</td>
+									<td>${user.age}</td>
+									<td>
+										<a href="#">수정</a>
+										<a href="#">삭제</a>
+									</td>
+								</tr>`;
+
+					table.insertAdjacentHTML('beforeend', tr);
+				}
+
+
+			});
+		</script>
 	</head>
 	<body>
 		<h3>User1 목록</h3>
@@ -15,16 +46,7 @@
 				<th>나이</th>
 				<th>관리</th>
 			</tr>
-			<tr>
-				<td>aaaa</td>
-				<td>홍길동</td>
-				<td>010-2111-1011</td>
-				<td>나이</td>
-				<td>
-					<a href="#">수정</a>
-					<a href="#">삭제</a>
-				</td>
-			</tr>
+			
 		</table>	
 	</body>
 </html>

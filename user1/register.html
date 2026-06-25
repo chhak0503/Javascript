@@ -34,22 +34,15 @@
 					.then(response => response.json())
 					.then(data => {
 						console.log(data);
+
+						alert(data.name + "님을 추가 했습니다.");
+
+						// 목록 이동
+						location.href = './list.html?register=success';
 					});
-
-
 				});
-
-
-
-
 			});
-
-
-
 		</script>
-
-
-
 	</head>
 	<body>
 		<h3>User1 등록</h3>
