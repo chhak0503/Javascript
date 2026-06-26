@@ -3,13 +3,44 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>로그인</title>
+		<script>
+
+			document.addEventListener('DOMContentLoaded', function(){
+
+
+				const form = document.formLogin;
+
+				form.addEventListener('submit', async function(e){
+					e.preventDefault();
+
+					const jsonData = Object.fromEntries(new FormData(this));
+					console.log(jsonData);
+
+					const response = await fetch('http://127.0.0.1:8080/ch09/login', {
+						method: 'POST',
+						credentials: 'include', // 요청시 쿠키값 포함
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(jsonData)
+					});
+					const data = await response.json();
+					console.log(data);
+
+
+				});
+
+
+				
+			});
+		</script>
 	</head>
 	<body>
 		<h3>로그인</h3>
 		
 		<a href="./register.html">회원가입</a>
 		
-		<form method="post">
+		<form name="formLogin" method="post">
 			<table border="1">
 				<tr>
 					<td>아이디</td>

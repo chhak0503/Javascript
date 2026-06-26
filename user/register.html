@@ -13,14 +13,10 @@
 				form.addEventListener('submit', async function(e){
 					e.preventDefault();
 
-					const jsonData = {
-						"userid" : this.userid.value,
-						"pass" : this.pass.value,
-						"name" : this.name.value,
-						"birth" : this.birth.value,
-						"age" : this.age.value,
-						"role" : this.role.value,
-					};
+					// 폼 데이터를 JSON 생성
+					const jsonData = Object.fromEntries(new FormData(this));
+
+					console.log(jsonData);
 					
 					const response = await fetch('http://127.0.0.1:8080/ch09/user', {
 						method: 'POST',
@@ -30,22 +26,15 @@
 						body: JSON.stringify(jsonData)
 					});
 					const data = await response.json();
-
 					console.log(data);
 
-
-
+					if(data){
+						alert(data.name + "님을 등록했습니다.");
+						location.href = './login.html';
+					}
 				});
-
-
-
-
 			});
-
-
-
 		</script>
-
 	</head>
 	<body>
 		<h3>회원가입</h3>
